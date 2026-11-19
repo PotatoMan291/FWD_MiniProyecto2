@@ -1,0 +1,1 @@
+import React from 'react';import {Routes,Route,Navigate} from 'react-router-dom';import ChatPage from '../pages/ChatPage.jsx';export default function AppRoutes(){return <Routes><Route path='/chat' element={<ChatPage/>}/><Route path='*' element={<Navigate to='/chat' replace/>}/></Routes>;}
