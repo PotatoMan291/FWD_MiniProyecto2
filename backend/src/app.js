@@ -1,0 +1,4 @@
+import 'dotenv/config';import express from 'express';import cors from 'cors';import cron from 'node-cron';import {router} from './routes/chat.routes.js';import {sync} from './agents/ingestion.agent.js';
+const app=express();app.use(cors({origin:process.env.FRONTEND_ORIGIN||'http://localhost:5173'}));app.use(express.json({limit:'16kb'}));app.get('/api/health',(_,res)=>res.json({ok:true,modo:process.env.DEMO_MODE==='true'?'demo':'jwt'}));app.use('/api',router);app.use((err,req,res,next)=>{console.error(err.message);res.status(500).json({error:'Error interno. Revisa la terminal del backend.'});});
+cron.schedule(process.env.SYNC_CRON||'0 6 * * *',()=>sync().then(console.log).catch(e=>console.error(e.message)),{timezone:'America/Costa_Rica'});
+app.listen(Number(process.env.PORT||3001),'127.0.0.1',()=>console.log('API RRHH activa'));

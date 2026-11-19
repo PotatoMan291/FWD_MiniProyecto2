@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {cosine,rank,chunk} from '../src/services/retrieval.js';
+test('coseno',()=>{assert.equal(cosine([1,0],[1,0]),1);assert.equal(cosine([1,0],[0,1]),0);});test('umbral',()=>assert.equal(rank([{embedding:[1,0]},{embedding:[0,1]}],[1,0],.5).length,1));test('secciones',()=>assert.equal(chunk('SECCIÓN: A\ntexto\nSECCIÓN: B\notro')[1].seccion,'B'));
